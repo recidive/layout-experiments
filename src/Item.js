@@ -1,20 +1,14 @@
 import React from 'react'
 import { node, number, object } from 'prop-types'
+import styled from 'styled-components'
 
 const Item = ({
   component: Component = 'div',
-  x = 1,
-  y = 1,
-  cols = 1,
-  rows = 1,
   style,
   children,
+  className,
 }) => (
-  <Component style={ {
-    gridColumn: x + ' / ' + (x + cols),
-    gridRow: y + ' / ' + (y + rows),
-    ...style,
-  } }>
+  <Component className={ className } style={ { ...style } }>
     { children }
   </Component>
 )
@@ -29,4 +23,7 @@ Item.propTypes = {
   children: node,
 }
 
-export default Item
+export default styled(Item)`
+  grid-column: ${ ({ x, cols }) => (x + ' / ' + (x + cols)) };
+  grid-row: ${ ({ y, rows }) => (y + ' / ' + (y + rows)) };
+`

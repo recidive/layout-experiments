@@ -1,21 +1,14 @@
 import React from 'react'
 import { node, object, string } from 'prop-types'
+import styled from 'styled-components'
 
 const Grid = ({
   component: Component = 'div',
-  gap: gridGap = '1rem',
-  columnSize: gridAutoColumns = '1fr',
-  rowSize: gridAutoRows = '1fr',
   style,
   children,
+  className,
 }) => (
-  <Component style={ {
-    display: 'grid',
-    gridGap,
-    gridAutoColumns,
-    gridAutoRows,
-    ...style,
-  } }>
+  <Component className={ className } style={ { ...style } }>
     { children }
   </Component>
 )
@@ -29,4 +22,9 @@ Grid.propTypes = {
   children: node,
 }
 
-export default Grid
+export default styled(Grid)`
+  display: grid;
+  grid-gap: ${ ({ gap }) => gap };
+  grid-auto-columns: ${ ({ columnSize }) => columnSize };
+  grid-auto-rows: ${ ({ rowSize }) => rowSize };
+`
